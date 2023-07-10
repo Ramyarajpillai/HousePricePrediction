@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin-login.css') }}" media="screen,projection" />
+</head>
+<body>
+<div id="body">
+        <div class='background'>
+            <div class="text1">
+                <h1>Admin Login</h1>
+            </div>
+        </div>
+    {% if error %}
+        <p>Incorrect username or password. Please try again.</p>
+    {% endif %}
+    <form class="form" method="post" action="/admin">
+        <label class='select_label' for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label class='select_label' for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+</body>
+</html>

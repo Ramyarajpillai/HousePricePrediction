@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dataset Display</title>
+    <style>
+    .background{
+    background-image: linear-gradient(#ADD8E6,aqua);
+    background-color: aqua;
+    height: 200px;
+    opacity: .4;
+    border-radius: 40px;
+   }
+    .background:hover{
+    background-image: linear-gradient(#ADD8E6,aqua,blue);
+    background-color: aqua;
+    height: 200px;
+    opacity: .4;
+    border-radius: 40px;
+    }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dataset Display</h1>
+    <table>
+        {{ dataset|safe }}
+    </table>
+</body>
+</html>

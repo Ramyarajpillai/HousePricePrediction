@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mycss3.css') }}" media="screen,projection" />
+</head>
+<body>
+<div id="body">
+        <div class='background'>
+            <div class="text1">
+                <h1>Welcome to the Admin Dashboard</h1>
+            </div>
+        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>LotFrontage</th>
+                <th>LotArea</th>
+                <th>TotalBsmtSF</th>
+                <th>GarageArea</th>
+                <th>MSZoning</th>
+                <th>BldgType</th>
+                <th>predicted_price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in prediction_data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td>{{ row[7] }}</td>
+                    <td>
+                        <form action="/admin/update/{{ row[0] }}" method="post">
+                            <input type="text" name="predicted_price" value="{{ row[7] }}" required>
+                            <input type="submit" value="Update">
+                        </form>
+                        <form action="/admin/delete/{{ row[0] }}" method="post">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

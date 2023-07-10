@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" type="text/css" href="./static/mycss.css" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="./static/mycss2.css" media="screen,projection"/>
+</head>
+<body>
+    <div id="body">
+        <div class='background'>
+            <div class="text1">
+                <h1>WELCOME TO ML HOUSE PRICE PREDICTION</h1>
+                <p id=header><a href="/admin">Admin</a></p>
+            </div>
+        </div>
+        <div class=paragraph1>
+            <p>
+                I created a machine learning model using the multiple linear regression equation. I tried to predict the price of the house based on certain pretrained data.
+            </p>
+        </div>
+        <div id="result">
+         {% if prediction is not none %}
+          <h3>Predicted Price: {{ prediction }}</h3>
+          {% endif %}
+        </div>
+
+        <div class=paragraph2>
+            <p>
+                User can view the location and the predicted price of some data, just take a look <a href="/display_dataset" >click here.</a>
+            </p>
+        </div>
+        <form class="form" action="/predict" method="post">
+            <label class='select_label'>What kind of <b>Zoning Area</b> do you want?</label>
+            <select id='MSZoning' name='MSZoning'>
+                <option value='A'>Agriculture</option>
+                <option value='FV'>Floating Village Residential</option>
+                <option value='I'>Industrial</option>
+                <option value='RH'>Residential High Density</option>
+                <option value='RL'>Residential Low Density</option>
+                <option value='RP'>Residential Low Density Park</option>
+                <option value='RM'>Residential Medium Density</option>
+                <option selected value="C">Commercial</option>
+            </select><br>
+            <label class='select_label'>How much <b>linear feet of street</b> connected to the property do you want?</label>
+            <select id='LotFrontage' name='LotFrontage'>
+                <option value='1.65'>1.65</option>
+                <option value='1.69'>1.69</option>
+                <option value='1.66'>1.66</option>
+                <option value='1.63'>1.63</option>
+                <option value='1.67'>1.67</option>
+                <option value='1.6'>1.6</option>
+                <option value='1.62'>1.62</option>
+                <option value='1.64'>1.64</option>
+                <option value='1.68'>1.68</option>
+                <option value='1.61'>1.61</option>
+             <option selected value="0" >0</option>
+            </select><br>
+
+            <label class='select_label'>How much <b>Lotsize (in square feet)</b> do you want?</label>
+            <select id='LotArea' name='LotArea'>
+                <option value='2.59'>2.59</option>
+                <option value='2.56'>2.56</option>
+                <option value='2.54'>2.54</option>
+                <option value='2.50'>2.50</option>
+                <option value='2.49'>2.49</option>
+                <option value='2.19'>2.19</option>
+             <option selected value="0" >0</option>
+            </select><br>
+
+            <label class='select_label'>what type of <b>Building</b> Do you want? </label>
+            <Select id='BldgType' name='BldgType'>
+            <option value='1Fam'>Single-family Detached</option>
+                <option value='2FmCon'>Two-family Conversion</option>
+                <option value='Duplx'>Duplex</option>
+                <option value='TwnhsE'>Townhouse End Unit</option>
+                <option value='TwnhsI'>Townhouse Inside Unit</option>
+             <option selected value="0" >NA </option>
+            </Select><br>
+
+            <label>Rate the overall material and finish of the house that you want from 1-10 where 1 is Very Poor and is Very Excellent:</label><br>
+            <input type="number" placeholder="Rate the finishing" id='OverallQual' name='OverallQual'><br>
+
+            <label class='select_label'>How much <b>Basement Area(in square feet) </b>do you want? </label>
+            <Select id='TotalBsmtSF' name='TotalBsmtSF'>
+            <option value='2.05'>2.05</option>
+                <option value='2.1'>2.1</option>
+                <option value='2.06'>2.06</option>
+                <option value='2.03'>2.03</option>
+                <option value='2.08'>2.08</option>
+                <option value='2.04'>2.04</option>
+                <option value='2.07'>2.07</option>
+                <option value='1.97'>1.97</option>
+                <option value='2.02'>2.02</option>
+                <option value='1.96'>1.96</option>
+                <option value='1.88'>1.88</option>
+                <option value='1.83'>1.83</option>
+                <option value='1.9'>1.9</option>
+                <option value='1.95'>1.95</option>
+             <option selected value="0" >0</option>
+            </Select><br>
+
+            <label class='select_label'>what type of <b>Heating</b> Do you want? </label>
+            <Select id='Heating' name='Heating'>
+            <option value='Floor'>Floor Furnace</option>
+                <option value='GasA'>Gas forced warm air furnace</option>
+                <option value='GasW'>Gas hot water or steam heat</option>
+                <option value='Grav'>Gravity furnace</option>
+                <option value='OthW'>Hot water or steam heat other than gas</option>
+                <option value='Wall'>Wall furnace</option>
+             <option selected value="0" >NA</option>
+            </Select><br>
+
+            <label class='select_label'>Do you want central air conditioning?</label>
+            <Select id='CentralAir' name='CentralAir'>
+            <option value='Y'>Yes</option>
+             <option selected value="N" >No</option>
+                </Select><br>
+
+            <label class='select_label'><b>Electrical system</b></label>
+            <Select id='Electrical' name='Electrical'>
+            <option value='SBrkr'>Standard Circuit Breakers & Romex</option>
+                <option value='FuseA'>Fuse Box over 60 AMP and all Romex wiring (Average)</option>
+                <option value='FuseF'>60 AMP Fuse Box and mostly Romex wiring (Fair)</option>
+                <option value='FuseP'>60 AMP Fuse Box and mostly knob & tube wiring (poor)</option>
+                <option value='Mix'>Mixed</option>
+             <option selected value="0" >NA</option>
+            </Select><br>
+
+            <label class='select_label'><b>Garage location</b></label>
+            <Select id='GarageType' name='GarageType'>
+            <option value='2Types'>More than one type of garage</option>
+                <option value='Attchd'>Attached to home</option>
+                <option value='Basment'>Basement Garage</option>
+                <option value='BuiltIn'>Built-In (Garage part of house - typically has room above garage)</option>
+                <option value='CarPort'>Car Port</option>
+                <option value='Detchd'>Detached from home</option>
+             <option selected value="NA" >No Garage</option>
+            </Select><br>
+
+
+            <label class='select_label'>How much <b>Lotsize (in square feet): </b> do you want? </label>
+            <Select id='GarageArea' name='GarageArea'>
+            <option value='1.99'>1.99</option>
+                <option value='1.96'>1.96</option>
+                <option value='2'>2</option>
+                <option value='2.01'>2.01</option>
+                <option value='2.05'>2.05</option>
+                <option value='1.97'>1.97</option>
+                <option value='1.84'>1.84</option>
+                <option value='1.94'>1.94</option>
+                <option value='1.91'>1.91</option>
+                <option value='1.87'>1.87</option>
+                <option value='2.04'>2.04</option>
+                <option value='1.82'>1.82</option>
+                <option value='1.85'>1.85</option>
+                <option value='2.09'>2.09</option>
+                <option value='2.06'>2.06</option>
+                <option value='2.08'>2.08</option>
+                <option value='2.1'>2.1</option>
+             <option selected value="0" >0</option>
+            </Select><br>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+        <div id=result1>
+                        <p>Knowing is not enough; we must apply. Willing is not enough; we must do</p>
+        </div>
+
+</body>
+</html>
